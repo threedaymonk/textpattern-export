@@ -7,6 +7,13 @@ flat-file format that can easily be parsed and imported into another system.
 It only covers the set of functionality I use, and excludes anything concerning
 multiple-author blogs.
 
+For reproducibility, only the rendered HTML version of a post is exported.
+
+A few tweaks are applied:
+
+* HTML is tidied to XHTML with `tidy`
+* Multiple BRs in comments are converted to proper paragraphs
+
 Usage
 -----
 
