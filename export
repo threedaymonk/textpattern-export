@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 require "active_record"
 require "yaml"
 require "open3"
@@ -67,25 +69,30 @@ def headers(hash)
   }.join("\n")
 end
 
+def within(path, &blk)
+  FileUtils.mkdir_p path
+  Dir.chdir path, &blk
+end
+
 config = YAML.load(File.read("config.yaml"))
 ActiveRecord::Base.establish_connection config[:database]
 
-FileUtils.mkdir_p "export/comments"
-Dir.chdir "export/comments" do
-  Comment.all.each do |comment|
-    filename = "%06d-%06d" % [comment.metadata[:post_id], comment.metadata[:id]]
-    File.open filename, "w" do |f|
-      f.puts headers(comment.metadata), "", tidy(comment.body)
+within "content" do
+  within "comments" do
+    Comment.all.each do |comment|
+      filename = "%06d-%06d" % [comment.metadata[:post_id], comment.metadata[:id]]
+      File.open filename, "w" do |f|
+        f.puts headers(comment.metadata), "", tidy(comment.body)
+      end
     end
   end
-end
 
-FileUtils.mkdir_p "export/posts"
-Dir.chdir "export/posts" do
-  Post.all.each do |post|
-    filename = "%06d-%s" % [post.metadata[:id], post.metadata[:slug]]
-    File.open filename, "w" do |f|
-      f.puts headers(post.metadata), "", tidy(post.body)
+  within "posts" do
+    Post.all.each do |post|
+      filename = "%06d-%s" % [post.metadata[:id], post.metadata[:slug]]
+      File.open filename, "w" do |f|
+        f.puts headers(post.metadata), "", tidy(post.body)
+      end
     end
   end
 end
