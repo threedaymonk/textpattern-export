@@ -22,6 +22,15 @@ Usage
 * Run `bundle exec ./export`
 * Comments are written under `content/`
 
+Export format
+-------------
+
+Each file contains a number of header lines, followed by a blank line, followed
+by the item body.
+
+Headers consist of a key and a value, separated by a colon and a space. Times
+are exported as ISO-8601 timestamps.
+
 Encoding
 --------
 
