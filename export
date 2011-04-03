@@ -63,10 +63,19 @@ def tidy(html)
     gsub(%r!\s+(</pre>)!, "\\1")
 end
 
+def format_value(v)
+  case v
+  when Time
+    v.utc.xmlschema
+  when String
+    v.gsub(/\\/, "\\\\\\\\").gsub(/\n/, "\\\\n")
+  else
+    v
+  end
+end
+
 def headers(hash)
-  hash.map{ |k, v|
-    [k, Time === v ? v.utc.xmlschema : v].join(": ")
-  }.join("\n")
+  hash.map{ |k, v| [k, format_value(v)].join(": ") }.join("\n")
 end
 
 def within(path, &blk)
