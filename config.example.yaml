@@ -1,0 +1,6 @@
+:database:
+  :adapter: mysql2
+  :username: ?
+  :password: ?
+  :database: textpattern
+  :encoding: utf8
