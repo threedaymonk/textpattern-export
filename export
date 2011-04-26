@@ -78,30 +78,21 @@ def headers(hash)
   hash.map{ |k, v| [k, format_value(v)].join(": ") }.join("\n")
 end
 
-def within(path, &blk)
-  FileUtils.mkdir_p path
-  Dir.chdir path, &blk
-end
-
 config = YAML.load(File.read("config.yaml"))
 ActiveRecord::Base.establish_connection config[:database]
 
-within "content" do
-  within "comments" do
-    Comment.all.each do |comment|
-      filename = "%06d-%06d" % [comment.metadata[:post_id], comment.metadata[:id]]
-      File.open filename, "w" do |f|
-        f.puts headers(comment.metadata), "", tidy(comment.body)
-      end
-    end
+Comment.all.each do |comment|
+  filename = "content/comments/%06d-%06d" % [comment.metadata[:post_id], comment.metadata[:id]]
+  FileUtils.mkdir_p File.dirname(filename)
+  File.open filename, "w" do |f|
+    f.puts headers(comment.metadata), "", tidy(comment.body)
   end
+end
 
-  within "posts" do
-    Post.all.each do |post|
-      filename = "%06d-%s" % [post.metadata[:id], post.metadata[:slug]]
-      File.open filename, "w" do |f|
-        f.puts headers(post.metadata), "", tidy(post.body)
-      end
-    end
+Post.all.each do |post|
+  filename = "content/posts/%s/%06d-%s" % [post.metadata[:section], post.metadata[:id], post.metadata[:slug]]
+  FileUtils.mkdir_p File.dirname(filename)
+  File.open filename, "w" do |f|
+    f.puts headers(post.metadata), "", tidy(post.body)
   end
 end
