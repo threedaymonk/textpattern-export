@@ -13,13 +13,15 @@ class Post < ActiveRecord::Base
 
   def metadata
     {
-       :id         => self.id,
-       :posted_at  => self.Posted,
-       :updated_at => self.LastMod,
-       :title      => self.Title,
-       :section    => self.Section,
-       :slug       => self.url_title,
-       :status     => STATUS[self.Status]
+      :id         => self.id,
+      :posted_at  => self.Posted,
+      :updated_at => self.LastMod || self.Posted,
+      :title      => self.Title,
+      :section    => self.Section,
+      :slug       => self.url_title,
+      :format     => "html",
+      :comments   => self.Annotate == 1,
+      :status     => STATUS[self.Status]
     }
   end
 
@@ -42,6 +44,7 @@ class Comment < ActiveRecord::Base
       :ip_address => self.ip,
       :posted_at  => self.posted,
       :visible    => self.visible,
+      :format     => "html",
       :user_agent => self.useragent
     }
   end
