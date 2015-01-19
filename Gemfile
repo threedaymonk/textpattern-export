@@ -1,3 +1,3 @@
-source :rubygems
+source "https://rubygems.org"
 gem "mysql2"
 gem "activerecord"
