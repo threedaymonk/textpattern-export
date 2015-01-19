@@ -6,8 +6,8 @@ require "open3"
 require "time"
 
 class Post < ActiveRecord::Base
-  set_table_name "textpattern"
-  set_primary_key "ID"
+  self.table_name = "textpattern"
+  self.primary_key = "ID"
 
   STATUS = %w[ _ draft hidden pending live sticky ]
 
@@ -31,8 +31,8 @@ class Post < ActiveRecord::Base
 end
 
 class Comment < ActiveRecord::Base
-  set_table_name "txp_discuss"
-  set_primary_key "discussid"
+  self.table_name = "txp_discuss"
+  self.primary_key = "discussid"
 
   def metadata
     {
