@@ -5,6 +5,7 @@ require "active_record"
 require "yaml"
 require "open3"
 require "time"
+require "htmlentities"
 
 class Post < ActiveRecord::Base
   self.table_name = "textpattern"
@@ -17,7 +18,7 @@ class Post < ActiveRecord::Base
       :id         => self.id,
       :posted_at  => self.Posted,
       :updated_at => self.LastMod || self.Posted,
-      :title      => self.Title,
+      :title      => HTMLEntities.new.decode(self.Title),
       :section    => self.Section,
       :slug       => self.url_title,
       :format     => "html",
