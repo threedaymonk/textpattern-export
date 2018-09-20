@@ -1,28 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    activemodel (4.2.0)
-      activesupport (= 4.2.0)
-      builder (~> 3.1)
-    activerecord (4.2.0)
-      activemodel (= 4.2.0)
-      activesupport (= 4.2.0)
-      arel (~> 6.0)
-    activesupport (4.2.0)
-      i18n (~> 0.7)
-      json (~> 1.7, >= 1.7.7)
+    activemodel (5.2.1)
+      activesupport (= 5.2.1)
+    activerecord (5.2.1)
+      activemodel (= 5.2.1)
+      activesupport (= 5.2.1)
+      arel (>= 9.0)
+    activesupport (5.2.1)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      i18n (>= 0.7, < 2)
       minitest (~> 5.1)
-      thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
-    arel (6.0.0)
-    builder (3.2.2)
-    htmlentities (4.3.3)
-    i18n (0.7.0)
-    json (1.8.2)
-    minitest (5.5.1)
-    mysql2 (0.3.17)
-    thread_safe (0.3.4)
-    tzinfo (1.2.2)
+    arel (9.0.0)
+    concurrent-ruby (1.0.5)
+    htmlentities (4.3.4)
+    i18n (1.1.0)
+      concurrent-ruby (~> 1.0)
+    minitest (5.11.3)
+    mysql2 (0.5.2)
+    thread_safe (0.3.6)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
 
 PLATFORMS
@@ -32,3 +30,9 @@ DEPENDENCIES
   activerecord
   htmlentities
   mysql2
+
+RUBY VERSION
+   ruby 2.5.1p57
+
+BUNDLED WITH
+   1.16.5
