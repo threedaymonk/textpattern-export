@@ -3,7 +3,11 @@ require "bundler/setup"
 require "yaml"
 
 tag = ARGV.first
-terms = ARGV.drop(1)
+if ARGV.length > 1
+  terms = ARGV.drop(1)
+else
+  terms = ARGV
+end
 
 def generate_headers(hash)
   hash.map{ |k, v| [k, v].join(": ") }.join("\n")
